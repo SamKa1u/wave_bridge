@@ -1,14 +1,13 @@
 #   Ro-Fetch
 
-A [TTU Whitacre College of Engineering](https://www.depts.ttu.edu/coe/) ECE-4380 lab project \
- <img src = 'Images/dbl_T.png'/>
+A [TTU Whitacre College of Engineering](https://www.depts.ttu.edu/coe/) ECE-4380 Capstone lab project \
+ <img src = 'images/dbl_T.png'/>
 
 ## Description
 
-Ro-Fetch is a disability assistance robotics platform capable of reality checking and home security.​
+Ro-Fetch is a disability assistance robotics platform capable of reality checking and providing home security services for those with mobility issues.​
 
 ### Dependencies
-
 * 
   
 ### Overview
@@ -20,7 +19,8 @@ Ro-Fetch is a disability assistance robotics platform capable of reality checkin
 * Raspberry pi 5
 * Logitech C310 webcam
 * Respeaker Xvf3800 Mic Array
-* Slamtec Rplidar C1M1 360 Laser Radar 
+* Slamtec Rplidar C1M1 360 Laser Radar
+* Lerobot So-101 Robotic Arm
 
 #### Lower Level Controller
 * ESP32 General Driver Board for Robotics 
@@ -30,36 +30,24 @@ Ro-Fetch is a disability assistance robotics platform capable of reality checkin
 ### Software
 
 #### Mono-Depth Backend
-* Modal Labs IaC Deployment
+* Modal Labs IaC deployment recieves image bytes of frame from Ro-Fetch and processes it with Apple Depth-Pro metric depth model. Depth endpoint then returns high precision depth array for /camera/depth/points topic.   
 <img src = 'images/modal_deploy.PNG' />
 
-#### GUI
- <img src = 'Images/gui.jpeg'/> 
 
 ## Meet The Team
 
-Samuel Kalu <sub>(CV software development)</sub>
+Samuel Kalu <sub></sub>
   
 * Email : [samkalu@ttu.edu](mailto:samkalu@ttu.edu)
 * [Linkedin](https://www.linkedin.com/in/samuel-kalu-74a359342/)
 
-Aiden Zsebenyi <sub>(Software and Hardware development: IR reciever)</sub>
-* Email : [azsebeny@ttu.edu](mailto:azsebeny@ttu.edu)
-
-Michael Dec  <sub>(Hardware development: IR emitter)</sub>
-* Email : [mdec@ttu.edu](mailto:mdec@ttu.edu)
+Stephen Nwosu <sub></sub>
+* Email : [stepnwos@ttu.edu](mailto:stepnwos@ttu.edu)
 
 ## Acknowledgments
 
-### Special thanks to Professor Everret Mcarthur
+### Special thanks to Dr. Brian Nutter
 Inspiration, code snippets, etc.
 * [TTU WCOE ECE Department](https://www.depts.ttu.edu/ece/)
-* [Learnopencv](https://learnopencv.com/face-detection-opencv-dlib-and-deep-learning-c-python/#:~:text=We%20notice%20that%20the%20OpenCV,along%20with%20the%20bounding%20box.)
-* [Label Studio](https://labelstud.io/guide/export)
-* [Ultralytics](https://docs.ultralytics.com/guides/raspberry-pi/#set-up-ultralytics)
-* [Edje Electronics](https://www.ejtech.io/learn/train-yolo-models)
-* [Tkinter](https://docs.python.org/3/library/tkinter.html#module-tkinter)
-* [Raspberry pi](https://www.raspberrypi.com/software/)
-* [Bro Code](https://www.youtube.com/watch?v=STEOavXqXkQ&ab_channel=BroCode)
-* [Gpiozero docs](https://gpiozero.readthedocs.io/en/latest/api_output.html)
+
   
