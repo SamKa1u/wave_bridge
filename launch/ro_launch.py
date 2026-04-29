@@ -11,8 +11,8 @@ def generate_launch_description():
     wave_dir = get_package_share_directory('wave_bridge')
 
     # yaml filepaths
-    ekf_path = os.path.join.(wave_dir, 'config', 'ekf.yaml')
-    nav2_path = os.path.join.(wave_dir, 'config', 'nav2_params.yaml')
+    ekf_path = os.path.join(wave_dir, 'config', 'ekf.yaml')
+    nav2_path = os.path.join(wave_dir, 'config', 'nav2_params.yaml')
 
 
 
@@ -54,7 +54,7 @@ def generate_launch_description():
 
         # nav2 bring up
          IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(nav2_bringup_dir, 'launch','navigation_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join('nav2_bringup', 'launch','navigation_launch.py')),
             launch_arguments={'params_file': nav2_path, 'use_sim_time': 'false', 'autostart': 'true'}.items()
         ),
 
