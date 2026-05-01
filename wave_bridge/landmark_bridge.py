@@ -19,7 +19,7 @@ class LocalVoiceNavManager(Node):
         self.filepath = os.path.expanduser("~/nav_waypoints.json")
         self.saved_landmarks = self.load_landmarks() #	load existing landmarks on boot
 
-        self.whisper_path = "/home/sam/wakeword/whisper.cpp/main"
+        self.whisper_path = "/home/sam/wakeword/whisper.cpp/build/bin/whisper-cli"
         self.whisper_model = "/home/sam/wakeword/whisper.cpp/models/ggml-tiny.en.bin"
         self.piper_model = "/home/sam/wakeword/piper_voices/en_US-amy-medium.onnx"
         
@@ -59,13 +59,13 @@ class LocalVoiceNavManager(Node):
            self.say("No existing waypoints file found. Starting fresh.")
 
         # join names with comma
-        landmark_names = ",".join(self.saved_landmarks.keys())
+        landmark_names = ",".join((self.saved_landmarks or {}).keys())
         self.say(f"The following locations are available: {landmark_names}")
 
     def audio_capture_loop(self):
         """Records short audio bursts and sends them to Whisper.cpp."""
         # adjust ALSA device index based on `arecord -l` for ReSpeaker
-        device = "hw:CARD=Array,DEV=0" 
+        device = "plughw:Array" 
         temp_audio = "/tmp/voice_cmd.wav"
         
         while rclpy.ok():
@@ -79,7 +79,7 @@ class LocalVoiceNavManager(Node):
                 # transcribe using whisper.cpp
                 # -nt drops timestamp overhead for faster text extraction
                 result = subprocess.run(
-                    [self.whisper_path, "-m", self.whisper_model, "-f", temp_audio, "-nt"],
+                    [self.whisper_path, "-m", self.whisper_model, "-f", temp_audio, "-nt", "-ot"],
                     capture_output=True, text=True
                 )
                 
