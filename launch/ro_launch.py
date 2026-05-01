@@ -52,25 +52,39 @@ def generate_launch_description():
         ),
 
 
-        # nav2 bring up
-         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join('nav2_bringup', 'launch','navigation_launch.py')),
-            launch_arguments={'params_file': nav2_path, 'use_sim_time': 'false', 'autostart': 'true'}.items()
-        ),
-
         # Physical Mount: 18.7cm left, 15.4 cm up arguments=['--x','0.0','--y', '0.187','--z', '0.154','--yaw' '0','--pitch' '0','--roll', '0', 'base_link', 'camera_link']
         Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            arguments=['--x','0.025','--y', '0.045','--z', '0.0','--yaw' '0','--pitch' '0','--roll', '0', '--frame-id','base_link','--child-frame-id', 'camera_link']
-        ),
-        # Optical rotation for Z-forward projection
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            arguments=['--x','0','--y', '0','--z', '0','--yaw', '-1.571','--pitch', '0','--roll', '-1.571', 'camera_link', 'camera_depth_optical_frame']
-        ),
+           package='tf2_ros',
+           executable='static_transform_publisher',
+           name='camera_mount_tf',
+           arguments=[
+              '0.025', '0.045', '0.0',
+              '-1.571', '0.0', '-1.571',
+              'base_link',
+              'camera_link'
+             ]
+         ),
 
+        # Optical rotation for Z-forward projection
+       # Node(
+           # package='tf2_ros',
+          #  executable='static_transform_publisher',
+         #   arguments=['--x','0','--y', '0','--z', '0','--yaw', '-1.571','--pitch', '0','--roll', '-1.571', '--frame-id','base_link', 'camera_link']
+        #),
+	        # WEBCAM DRIVER (Logitech C310)
+       # Node(
+       #     package='usb_cam',
+       #     executable='usb_cam_node_exe',
+       #     name='usb_cam',
+       #     output='screen',
+       #     parameters=[
+       #         {'video_device': '/dev/video0'},
+       #         {'image_width': 1280},
+       #         {'image_height': 720},
+       #         {'pixel_format': 'mjpeg2rgb'}, # C310 supports mjpeg for higher FPS
+       #         {'frame_id': 'camera_link'}
+       #     ]
+       # ),
         # DEPTH TO POINTCLOUD
         ComposableNodeContainer(
             name='depth_image_proc_container',
@@ -91,19 +105,6 @@ def generate_launch_description():
             ],
             output='screen',
         ),
-        # WEBCAM DRIVER (Logitech C310)
-        Node(
-            package='usb_cam',
-            executable='usb_cam_node_exe',
-            name='usb_cam',
-            output='screen',
-            parameters=[
-                {'video_device': '/dev/video0'},
-                {'image_width': 1280},
-                {'image_height': 720},
-                {'pixel_format': 'mjpeg2rgb'}, # C310 supports mjpeg for higher FPS
-                {'frame_id': 'camera_link'}
-            ]
-        ),
+
     ])
 
